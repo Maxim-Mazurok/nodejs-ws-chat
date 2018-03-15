@@ -5,7 +5,7 @@ const WebSocket = require('ws');
 
 const app = express();
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
@@ -16,7 +16,7 @@ wss.on('connection', function connection(ws, req) {
     console.log(location);
 
     ws.on('message', function incoming(message) {
-        var message = JSON.parse(message);
+        message = JSON.parse(message);
         console.log('received: %s', message.data);
 
         wss.clients.forEach(function each(client) {
@@ -27,6 +27,6 @@ wss.on('connection', function connection(ws, req) {
     });
 });
 
-server.listen(8080, function listening() {
+server.listen(process.env.PORT || 8080, function listening() {
     console.log('Listening on %d', server.address().port);
 });

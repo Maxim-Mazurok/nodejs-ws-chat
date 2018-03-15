@@ -37,8 +37,7 @@
             }
         });
 
-        $(document).on('click keypress', '#sendNewMessage', function (event) {
-            if (event.type === 'click' || event.type === 'keypress' && )
+        function sendMessage() {
             var message = {
                 type: 'message',
                 data: $('#newMessage').val()
@@ -53,7 +52,16 @@
                 socket.send(JSON.stringify(message));
                 $('#messages').append('<div class="my">' + message.data + '</div>');
             }
-        });
+        }
+
+        $(document)
+            .on('click', '#sendNewMessage', sendMessage)
+            .on('keypress', '#newMessage', function (event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    sendMessage();
+                }
+            });
 
         var timeout;
         var typing = false;

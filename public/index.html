@@ -54,19 +54,19 @@
             }
         }
 
-        $(document)
-            .on('click', '#sendNewMessage', sendMessage)
-            .on('keypress', '#newMessage', function (event) {
-                if (event.keyCode === 13) {
-                    event.preventDefault();
-                    sendMessage();
-                }
-            });
+        $(document).on('click', '#sendNewMessage', sendMessage);
 
         var timeout;
         var typing = false;
         $(document).on('keypress', '#newMessage', function () {
             clearTimeout(timeout);
+
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                sendMessage();
+                return;
+            }
+
             if (typing === false) {
                 socket.send(JSON.stringify({
                     type: 'typing',

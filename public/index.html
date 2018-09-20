@@ -23,7 +23,7 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        var socket = new WebSocket('ws://localhost:8080/');
+        var socket = new WebSocket('ws://'+document.location.hostname+':8080/');
         socket.addEventListener('message', function (event) {
             var message = JSON.parse(event.data);
             if (message.type === 'message') {
